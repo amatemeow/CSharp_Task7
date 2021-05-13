@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Book
+
+@{
+    ViewData["Title"] = "Modifying Books";
+}
+<div class="text-center">
+    <h2>@ViewData["Title"]</h2>
+    <div class="creator">
+        @using (Html.BeginForm("Create", "Home"))
+        {
+            <div class="input-box">
+                <label>ISBN</label>
+                @Html.TextBoxFor(o => o.Isbn, new { @class = "text-box" })
+            </div>
+            <div class="input-box">
+                <label>Title</label>
+                @Html.TextBoxFor(o => o.Title, new { @class = "text-box" })
+            </div>
+            <div class="input-box">
+                <label>Year Of Publishing</label>
+                @Html.TextBoxFor(o => o.Year, "2021", new { type = "number", @class = "text-box" })
+            </div>
+            <div class="input-box">
+                <label>AuthorID</label>
+                @Html.TextBoxFor(o => o.AuthorId, new { type = "number", @class = "text-box" })
+            </div>
+            <div class="submit-button">
+                <input type="submit" value="Submit" />
+            </div>
+        }
+    </div>
+</div>

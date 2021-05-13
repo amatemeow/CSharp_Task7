@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebApplication1.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+@*<div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
+<div class="text-center">
+    <h2>@ViewData["Title"]</h2>
+    <div class="books-list">
+        <table class="show-content">
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Year of Publishing</th>
+                <th>Author</th>
+                <th>Controls</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Isbn</td>
+                    <td>@item.Title</td>
+                    <td>@item.Year</td>
+                    <td>
+                        @if (item.AuthorId != null)
+                        {
+                            @item.Author.Name;
+                        }
+                        else
+                        {
+                            Html.DisplayText("Unknown author");
+                        }
+                    </td>
+                    <td style="word-spacing: 1em;">
+                        @Html.ActionLink("Edit", "Edit", item)
+                        @Html.ActionLink("Delete", "Delete", item)
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="entry-counter">
+            <p>Total number of entries: @Model.ToList().Count</p>
+            <p>
+                Grouped by Author: <br />
+                @foreach (var group in Model.ToList().Where(m => m.AuthorId != null).GroupBy(m => m.Author.Name))
+                {
+                    var tmpKey = group.Key + " : ";
+                    @tmpKey;
+                    @group.Count();
+                    <br />
+                }
+            </p>
+            <p>
+                Average amount of books by author: 
+                @Math.Round(Model.ToList().Where(m => m.AuthorId != null).GroupBy(m => m.Author.Name).Average(m => m.Count()),2)
+            </p>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="create-button">
+            @Html.ActionLink("Create new", "Create")
+        </button>
+        <button class="create-button">
+            @Html.ActionLink("Show Authors", "ShowAuthors")
+        </button>
+    </div>
+</div>

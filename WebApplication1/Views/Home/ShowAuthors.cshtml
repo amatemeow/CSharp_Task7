@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<WebApplication1.Models.Author>
+
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<div class="text-center">
+    <h2>@ViewData["Title"]</h2>
+    <div class="books-list">
+        <table class="show-content">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Country Of Birth</th>
+                <th>Year Of Birth</th>
+                <th>Number Of Books</th>
+                <th>Controls</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.CountryOfBirth</td>
+                    <td>@item.YearOfBirth</td>
+                    <td>@item.Books.Count</td>
+                    <td style="word-spacing: 1em;">
+                        @Html.ActionLink("Edit", "EditAuthor", item)
+                        @Html.ActionLink("Delete", "DeleteAuthor", item)
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="entry-counter">
+            <p>Total number of entries: @Model.ToList().Count</p>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="create-button">
+            @Html.ActionLink("Create new", "CreateAuthor")
+        </button>
+    </div>
+</div>
